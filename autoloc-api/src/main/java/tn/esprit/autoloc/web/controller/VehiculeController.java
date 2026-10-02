@@ -1,10 +1,12 @@
 package tn.esprit.autoloc.web.controller;
 
-import tn.esprit.autoloc.domain.Vehicule;
-import tn.esprit.autoloc.service.IVehiculeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.autoloc.service.IVehiculeService;
+import tn.esprit.autoloc.web.dto.VehiculeDTO;
+import tn.esprit.autoloc.web.dto.VehiculeMapper;
 
 import java.util.List;
 
@@ -13,20 +15,23 @@ import java.util.List;
 public class VehiculeController {
 
     private final IVehiculeService vehiculeService;
+    private final VehiculeMapper vehiculeMapper;
 
-    public VehiculeController(IVehiculeService vehiculeService) {
+    public VehiculeController(IVehiculeService vehiculeService, VehiculeMapper vehiculeMapper) {
         this.vehiculeService = vehiculeService;
+        this.vehiculeMapper = vehiculeMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Vehicule> ajouter(@RequestBody Vehicule vehicule) {
-        Vehicule cree = vehiculeService.ajouterVehicule(vehicule);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cree);
+    public ResponseEntity<VehiculeDTO> ajouter(@Valid @RequestBody VehiculeDTO dto) {
+        var cree = vehiculeService.ajouterVehicule(vehiculeMapper.toEntity(dto), dto.idAgence());
+        return ResponseEntity.status(HttpStatus.CREATED).body(vehiculeMapper.toDto(cree));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicule> modifier(@PathVariable Long id, @RequestBody Vehicule vehicule) {
-        return ResponseEntity.ok(vehiculeService.modifierVehicule(id, vehicule));
+    public ResponseEntity<VehiculeDTO> modifier(@PathVariable Long id, @Valid @RequestBody VehiculeDTO dto) {
+        var modifie = vehiculeService.modifierVehicule(id, vehiculeMapper.toEntity(dto), dto.idAgence());
+        return ResponseEntity.ok(vehiculeMapper.toDto(modifie));
     }
 
     @DeleteMapping("/{id}")
@@ -36,12 +41,12 @@ public class VehiculeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Vehicule> consulter(@PathVariable Long id) {
-        return ResponseEntity.ok(vehiculeService.consulterVehicule(id));
+    public ResponseEntity<VehiculeDTO> consulter(@PathVariable Long id) {
+        return ResponseEntity.ok(vehiculeMapper.toDto(vehiculeService.consulterVehicule(id)));
     }
 
     @GetMapping
-    public ResponseEntity<List<Vehicule>> lister() {
-        return ResponseEntity.ok(vehiculeService.listerVehicules());
+    public ResponseEntity<List<VehiculeDTO>> lister() {
+        return ResponseEntity.ok(vehiculeService.listerVehicules().stream().map(vehiculeMapper::toDto).toList());
     }
 }

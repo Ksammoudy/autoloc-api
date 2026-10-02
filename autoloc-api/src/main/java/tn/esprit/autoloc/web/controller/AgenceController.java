@@ -1,10 +1,12 @@
 package tn.esprit.autoloc.web.controller;
 
-import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.service.IAgenceService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.autoloc.service.IAgenceService;
+import tn.esprit.autoloc.web.dto.AgenceDTO;
+import tn.esprit.autoloc.web.dto.AgenceMapper;
 
 import java.util.List;
 
@@ -13,20 +15,23 @@ import java.util.List;
 public class AgenceController {
 
     private final IAgenceService agenceService;
+    private final AgenceMapper agenceMapper;
 
-    public AgenceController(IAgenceService agenceService) {
+    public AgenceController(IAgenceService agenceService, AgenceMapper agenceMapper) {
         this.agenceService = agenceService;
+        this.agenceMapper = agenceMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Agence> ajouter(@RequestBody Agence agence) {
-        Agence creee = agenceService.ajouterAgence(agence);
-        return ResponseEntity.status(HttpStatus.CREATED).body(creee);
+    public ResponseEntity<AgenceDTO> ajouter(@Valid @RequestBody AgenceDTO dto) {
+        var creee = agenceService.ajouterAgence(agenceMapper.toEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(agenceMapper.toDto(creee));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Agence> modifier(@PathVariable Long id, @RequestBody Agence agence) {
-        return ResponseEntity.ok(agenceService.modifierAgence(id, agence));
+    public ResponseEntity<AgenceDTO> modifier(@PathVariable Long id, @Valid @RequestBody AgenceDTO dto) {
+        var modifiee = agenceService.modifierAgence(id, agenceMapper.toEntity(dto));
+        return ResponseEntity.ok(agenceMapper.toDto(modifiee));
     }
 
     @DeleteMapping("/{id}")
@@ -36,12 +41,12 @@ public class AgenceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Agence> consulter(@PathVariable Long id) {
-        return ResponseEntity.ok(agenceService.consulterAgence(id));
+    public ResponseEntity<AgenceDTO> consulter(@PathVariable Long id) {
+        return ResponseEntity.ok(agenceMapper.toDto(agenceService.consulterAgence(id)));
     }
 
     @GetMapping
-    public ResponseEntity<List<Agence>> lister() {
-        return ResponseEntity.ok(agenceService.listerAgences());
+    public ResponseEntity<List<AgenceDTO>> lister() {
+        return ResponseEntity.ok(agenceService.listerAgences().stream().map(agenceMapper::toDto).toList());
     }
 }
