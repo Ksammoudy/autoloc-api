@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.* ;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -29,9 +31,16 @@ public class Contrat {
 
     @Column(nullable = false)
     private boolean valide;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reservation")
     private Reservation reservation;
+
     @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Paiement> paiements;
+    private List<Paiement> paiements = new ArrayList<>();
+
+    public void ajouterPaiement(Paiement paiement) {
+        paiements.add(paiement);
+        paiement.setContrat(this);
+    }
 }
