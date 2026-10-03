@@ -1,10 +1,13 @@
 package tn.esprit.autoloc.domain;
-import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agence")
@@ -29,9 +32,30 @@ public class Agence {
 
     @Column(nullable = false, length = 20)
     private String telephone;
-    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
-    private List<Vehicule> vehicules;
 
     @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
-    private List<Employe> employes;
+    private List<Vehicule> vehicules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    private List<Employe> employes = new ArrayList<>();
+
+    public void ajouterVehicule(Vehicule vehicule) {
+        vehicules.add(vehicule);
+        vehicule.setAgence(this);
+    }
+
+    public void retirerVehicule(Vehicule vehicule) {
+        vehicules.remove(vehicule);
+        vehicule.setAgence(null);
+    }
+
+    public void ajouterEmploye(Employe employe) {
+        employes.add(employe);
+        employe.setAgence(this);
+    }
+
+    public void retirerEmploye(Employe employe) {
+        employes.remove(employe);
+        employe.setAgence(null);
+    }
 }
