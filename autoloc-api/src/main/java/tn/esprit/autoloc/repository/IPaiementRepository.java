@@ -3,7 +3,7 @@ package tn.esprit.autoloc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import tn.esprit.autoloc.domain.Paiement;
+import tn.esprit.autoloc.entity.Paiement;
 
 import java.math.BigDecimal;
 

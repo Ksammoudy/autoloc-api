@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Reservation;
+import tn.esprit.autoloc.entity.Reservation;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ public interface IReservationService {
     void annulerReservation(Long id);
     Reservation consulterReservation(Long id);
     List<Reservation> listerReservations();
+    void affecterClientAReservation(Long idClient, Long idReservation);
 }

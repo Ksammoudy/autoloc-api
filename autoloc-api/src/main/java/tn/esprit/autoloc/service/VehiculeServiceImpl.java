@@ -1,8 +1,8 @@
 package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
-import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Agence;
+import tn.esprit.autoloc.entity.Vehicule;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
 

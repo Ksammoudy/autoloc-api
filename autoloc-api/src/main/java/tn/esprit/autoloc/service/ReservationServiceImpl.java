@@ -1,8 +1,10 @@
 package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
-import tn.esprit.autoloc.domain.Reservation;
-import tn.esprit.autoloc.domain.StatutReservation;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.entity.Client;
+import tn.esprit.autoloc.entity.Reservation;
+import tn.esprit.autoloc.entity.StatutReservation;
 import tn.esprit.autoloc.repository.IClientRepository;
 import tn.esprit.autoloc.repository.IReservationRepository;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
@@ -68,5 +70,16 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<Reservation> listerReservations() {
         return reservationRepository.findAll();
+    }
+
+    @Override
+    public void affecterClientAReservation(Long idClient, Long idReservation) {
+        Client client = clientRepository.findById(idClient).orElse(null);
+        Reservation reservation = reservationRepository.findById(idReservation).orElse(null);
+
+        if (client != null && reservation != null) {
+            reservation.setClient(client);
+            reservationRepository.save(reservation);
+        }
     }
 }

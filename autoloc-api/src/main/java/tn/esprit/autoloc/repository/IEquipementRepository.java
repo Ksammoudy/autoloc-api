@@ -1,7 +1,9 @@
 package tn.esprit.autoloc.repository;
 
-import tn.esprit.autoloc.domain.Equipement;
+import org.springframework.stereotype.Repository;
+import tn.esprit.autoloc.entity.Equipement;
 import org.springframework.data.jpa.repository.JpaRepository;
+@Repository
 
 public interface IEquipementRepository extends JpaRepository<Equipement, Long> {
 }

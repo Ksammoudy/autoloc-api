@@ -1,19 +1,19 @@
-package tn.esprit.autoloc.service;
+package tn.esprit.autoloc.service.strategy;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.domain.Employe;
-import tn.esprit.autoloc.domain.Equipement;
-import tn.esprit.autoloc.domain.StatutVehicule;
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Agence;
+import tn.esprit.autoloc.entity.Employe;
+import tn.esprit.autoloc.entity.Equipement;
+import tn.esprit.autoloc.entity.StatutVehicule;
+import tn.esprit.autoloc.entity.Vehicule;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 import tn.esprit.autoloc.repository.IEmployeRepository;
 import tn.esprit.autoloc.repository.IEquipementRepository;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
-
 import java.util.List;
 import java.util.NoSuchElementException;
+import tn.esprit.autoloc.service.IAffectationService;
 
 @Service
 public class AffectationServiceImpl implements IAffectationService {

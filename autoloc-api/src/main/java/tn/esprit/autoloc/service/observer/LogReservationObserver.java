@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service.observer;
 
-import tn.esprit.autoloc.domain.Reservation;
+import tn.esprit.autoloc.entity.Reservation;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,9 +2,9 @@ package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tn.esprit.autoloc.domain.Maintenance;
-import tn.esprit.autoloc.domain.StatutVehicule;
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Maintenance;
+import tn.esprit.autoloc.entity.StatutVehicule;
+import tn.esprit.autoloc.entity.Vehicule;
 import tn.esprit.autoloc.repository.IMaintenanceRepository;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
 

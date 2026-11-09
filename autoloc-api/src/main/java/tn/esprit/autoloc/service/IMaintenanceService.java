@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Maintenance;
+import tn.esprit.autoloc.entity.Maintenance;
 
 import java.util.List;
 

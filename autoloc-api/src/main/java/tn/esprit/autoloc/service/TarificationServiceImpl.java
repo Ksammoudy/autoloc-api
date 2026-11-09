@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Vehicule;
 import tn.esprit.autoloc.service.strategy.ITarificationStrategy;
 import tn.esprit.autoloc.service.strategy.TarificationStrategyFactory;
 import org.springframework.stereotype.Service;

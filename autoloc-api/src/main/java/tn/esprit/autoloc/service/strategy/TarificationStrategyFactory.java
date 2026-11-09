@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service.strategy;
 
-import tn.esprit.autoloc.domain.CategorieVehicule;
+import tn.esprit.autoloc.entity.CategorieVehicule;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumMap;

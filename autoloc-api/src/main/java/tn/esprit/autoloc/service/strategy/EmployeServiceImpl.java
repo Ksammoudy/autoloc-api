@@ -1,7 +1,7 @@
 package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
-import tn.esprit.autoloc.domain.Employe;
+import tn.esprit.autoloc.entity.Employe;
 import tn.esprit.autoloc.repository.IEmployeRepository;
 
 import java.util.List;

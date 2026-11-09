@@ -2,11 +2,11 @@ package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tn.esprit.autoloc.domain.Contrat;
-import tn.esprit.autoloc.domain.Reservation;
-import tn.esprit.autoloc.domain.StatutReservation;
-import tn.esprit.autoloc.domain.StatutVehicule;
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Contrat;
+import tn.esprit.autoloc.entity.Reservation;
+import tn.esprit.autoloc.entity.StatutReservation;
+import tn.esprit.autoloc.entity.StatutVehicule;
+import tn.esprit.autoloc.entity.Vehicule;
 import tn.esprit.autoloc.repository.IContratRepository;
 import tn.esprit.autoloc.repository.IPaiementRepository;
 import tn.esprit.autoloc.repository.IReservationRepository;
@@ -36,7 +36,6 @@ public class ContratServiceImpl implements IContratService {
     }
 
     @Override
-    @Transactional
     public Contrat genererContrat(Long idReservation) {
         Reservation reservation = reservationRepository.findById(idReservation)
                 .orElseThrow(() -> new NoSuchElementException("Réservation introuvable, id=" + idReservation));
@@ -78,7 +77,7 @@ public class ContratServiceImpl implements IContratService {
     }
 
     @Override
-    @Transactional
+
     public void supprimerContrat(Long id) {
         Contrat contrat = consulterContrat(id);
         Reservation reservation = contrat.getReservation();
@@ -98,5 +97,28 @@ public class ContratServiceImpl implements IContratService {
         consulterContrat(idContrat);
         BigDecimal total = paiementRepository.totalPayeParContrat(idContrat);
         return total != null ? total : BigDecimal.ZERO;
+    }
+    @Override
+
+    public void affecterContratAReservation(Long idContrat, Long idReservation) {
+        Contrat contrat = contratRepository.findById(idContrat).orElse(null);
+        Reservation reservation = reservationRepository.findById(idReservation).orElse(null);
+
+        if (contrat != null && reservation != null) {
+            contrat.setReservation(reservation);
+            reservation.setContrat(contrat);
+            contratRepository.save(contrat);
+        }
+    }
+    @Override
+    public void desaffecterContratDeReservation(Long idReservation) {
+        Reservation reservation = reservationRepository.findById(idReservation).orElse(null);
+
+        if (reservation != null && reservation.getContrat() != null) {
+            Contrat contrat = reservation.getContrat();
+            contrat.setReservation(null);
+            reservation.setContrat(null);
+            contratRepository.save(contrat);
+        }
     }
 }

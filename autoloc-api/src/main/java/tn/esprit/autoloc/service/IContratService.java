@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Contrat;
+import tn.esprit.autoloc.entity.Contrat;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,4 +11,6 @@ public interface IContratService {
     List<Contrat> listerContrats();
     void supprimerContrat(Long id);
     BigDecimal calculerMontantPaye(Long idContrat);
+    void affecterContratAReservation(Long idContrat, Long idReservation);
+    void desaffecterContratDeReservation(Long idReservation);
 }

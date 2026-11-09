@@ -1,8 +1,8 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Employe;
-import tn.esprit.autoloc.domain.Equipement;
-import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.entity.Employe;
+import tn.esprit.autoloc.entity.Equipement;
+import tn.esprit.autoloc.entity.Vehicule;
 
 import java.util.List;
 

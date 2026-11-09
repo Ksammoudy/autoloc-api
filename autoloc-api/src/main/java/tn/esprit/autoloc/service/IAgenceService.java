@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Agence;
+import tn.esprit.autoloc.entity.Agence;
 
 import java.util.List;
 
@@ -10,4 +10,6 @@ public interface IAgenceService {
     void supprimerAgence(Long id);
     Agence consulterAgence(Long id);
     List<Agence> listerAgences();
+    void affecterVehiculeAAgence(Long idVehicule, Long idAgence);
+    void desaffecterVehiculeDAgence(Long idVehicule);
 }

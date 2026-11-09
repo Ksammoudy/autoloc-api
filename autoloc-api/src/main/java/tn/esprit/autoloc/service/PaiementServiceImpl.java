@@ -2,8 +2,8 @@ package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tn.esprit.autoloc.domain.Contrat;
-import tn.esprit.autoloc.domain.Paiement;
+import tn.esprit.autoloc.entity.Contrat;
+import tn.esprit.autoloc.entity.Paiement;
 import tn.esprit.autoloc.repository.IContratRepository;
 import tn.esprit.autoloc.repository.IPaiementRepository;
 
@@ -53,6 +53,16 @@ public class PaiementServiceImpl implements IPaiementService {
 
     private Contrat trouverContrat(Long id) {
         return contratRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Contrat introuvable, id=" + id));
+                .orElse(null);
+    }
+    @Override
+    public void affecterPaiementAContrat(Long idPaiement, Long idContrat) {
+        Paiement paiement = paiementRepository.findById(idPaiement).orElse(null);
+        Contrat contrat = contratRepository.findById(idContrat).orElse(null);
+
+        if (paiement != null && contrat != null) {
+            paiement.setContrat(contrat);
+            paiementRepository.save(paiement);
+        }
     }
 }
